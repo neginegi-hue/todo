@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.todo.mappers.TodoMapper">
+    <!-- 結果と結果を受け取るクラスの紐づけ -->
+    <resultMap id="todoResultMap" type="com.example.todo.domains.Todo">
+      <result property="id" column="id" />
+      <result property="todo" column="todo"/>
+      <result property="task" column="task"/>
+      <result property="limitdate" column="limitdate"/>
+    </resultMap>
+    <!-- SQL -->
+    <select id="all" resultMap="todoResultMap">
+        SELECT * FROM todos
+    </select>
+    <update id="done" parameterType="int">
+        UPDATE todos SET todo = TRUE WHERE id = #{id}
+    </update>
+    <insert id="add" parameterType="com.example.todo.domains.Todo">
+        INSERT INTO todos(todo,task,limitdate) VALUES (#{todo},#{task},#{limitdate});
+    </insert>
+</mapper>
